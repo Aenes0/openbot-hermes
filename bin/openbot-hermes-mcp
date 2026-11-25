@@ -1,0 +1,11 @@
+#!/bin/sh
+# Launcher: roda o servidor com o Python do sistema, sem instalar nada.
+# -I (modo isolado) evita carregar código de PYTHONPATH/pasta atual por acidente.
+here="$(cd "$(dirname "$0")/.." && pwd)"
+exec python3 -I -X utf8 -c '
+import sys
+src = sys.argv.pop(1)
+sys.path.insert(0, src)
+from hermes_mcp.cli import main
+raise SystemExit(main())
+' "$here/src" "$@"
